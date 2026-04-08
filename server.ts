@@ -49,21 +49,17 @@ const startServer = async () => {
   app.use(notFound);
   app.use(errorHandler);
 
-  //   app.listen(PORT, () => {
-  //     console.log(`Server running on http://localhost:${PORT}`);
-  //   });
-  // };
-
-  // Only listen if not running on Vercel
-  if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, '0.0.0.0', () => {
+    app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
     });
-  }
+  };
+  // Only listen if not running on Vercel
+  // if (process.env.NODE_ENV !== 'production') {
+  //   app.listen(PORT, '0.0.0.0', () => {
+  //     console.log(`Server running on http://localhost:${PORT}`);
+  //   });
+  // }
 
   startServer();
-  
-
-}
  //Export the app for Vercel
   export default app;

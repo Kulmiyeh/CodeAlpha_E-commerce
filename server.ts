@@ -13,13 +13,10 @@ import productRoutes from './server/routes/productRoutes';
 import orderRoutes from './server/routes/orderRoutes';
 
 dotenv.config();
-
+ const app = express();
 const startServer = async () => {
   await connectDB();
-
-  const app = express();
   const PORT = 3000;
-
   app.use(express.json());
   app.use(cors());
   app.use(cookieParser());
@@ -52,9 +49,21 @@ const startServer = async () => {
   app.use(notFound);
   app.use(errorHandler);
 
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-  });
-};
+  //   app.listen(PORT, () => {
+  //     console.log(`Server running on http://localhost:${PORT}`);
+  //   });
+  // };
 
-startServer();
+  // Only listen if not running on Vercel
+  if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
+  }
+
+  startServer();
+  
+
+}
+ //Export the app for Vercel
+  export default app;
